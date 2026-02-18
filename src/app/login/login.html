@@ -1,0 +1,64 @@
+<div class="page">
+  <div class="card">
+    <div class="header">
+      <h1>Giriş Yap</h1>
+      <p class="subtitle">Devam etmek için bilgilerini gir.</p>
+    </div>
+
+    <form class="form" [formGroup]="form" (ngSubmit)="onSubmit()">
+      <div class="field">
+        <label for="username">Kullanıcı adı</label>
+        <input
+          id="username"
+          type="text"
+          formControlName="username"
+          autocomplete="username"
+          placeholder="örn: admin"
+          [class.invalid]="form.controls.username.touched && form.controls.username.invalid"
+        />
+        <small class="hint" *ngIf="form.controls.username.touched && form.controls.username.hasError('required')">
+          Kullanıcı adı zorunlu.
+        </small>
+      </div>
+
+      <div class="field">
+        <label for="password">Şifre</label>
+        <input
+          id="password"
+          type="password"
+          formControlName="password"
+          autocomplete="current-password"
+          placeholder="••••"
+          [class.invalid]="form.controls.password.touched && form.controls.password.invalid"
+        />
+        <small class="hint" *ngIf="form.controls.password.touched && form.controls.password.hasError('required')">
+          Şifre zorunlu.
+        </small>
+        <small class="hint" *ngIf="form.controls.password.touched && form.controls.password.hasError('minlength')">
+          Şifre en az 4 karakter olmalı.
+        </small>
+      </div>
+
+      <div class="row">
+        <label class="checkbox">
+          <input type="checkbox" />
+          <span>Beni hatırla</span>
+        </label>
+
+        <a class="link" href="#" (click)="$event.preventDefault()">Şifremi unuttum</a>
+      </div>
+
+      <button class="btn" type="submit" [disabled]="isLoading">
+        <span *ngIf="!isLoading">Login</span>
+        <span *ngIf="isLoading">Giriş yapılıyor…</span>
+      </button>
+
+      <p class="error" *ngIf="errorMessage">{{ errorMessage }}</p>
+    </form>
+
+    <p class="footer">
+      Hesabın yok mu?
+      <a class="link" href="#" (click)="$event.preventDefault()">Kayıt ol</a>
+    </p>
+  </div>
+</div>

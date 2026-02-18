@@ -1,43 +1,19 @@
-import { Component, signal } from '@angular/core';
-import { RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
-import {FormsModule} from '@angular/forms';
-import {Child} from './child/child';
+import { Router } from '@angular/router';
+import { inject } from '@angular/core';
 
-@Component({
-  selector: 'app-root',
-  imports:[FormsModule, Child,RouterOutlet, RouterLink, RouterLinkActive],
-  templateUrl: './app.html',
-  styleUrl: './app.css'
-})
 export class App {
-  title= 'angular öğreniyorum';
+  private router = inject(Router);
 
-  counter=0;
-
-  increase(){
-    this.counter++;
+  get isLoginPage(): boolean {
+    return this.router.url === '/login';
   }
 
-  isVisible=  false;
-
-  toggle() {
-    this.isVisible = !this.isVisible;
-
+  isLoggedIn(): boolean {
+    return !!localStorage.getItem('token');
   }
 
-  items= ["angular", "react","vue"];
-
-  name = '';
-
-  user= {
-    name : '',
-    email: '' };
-  
-    onSubmit () {
-
-      console.log("Form Gönderildi:", this.user);
-    }
-
-    parentMessage = "Merhaba Child";
-
+  logout(): void {
+    localStorage.removeItem('token');
+    this.router.navigate(['/login']);
+  }
 }

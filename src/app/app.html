@@ -1,8 +1,10 @@
-<nav>
-  <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Home</a>
+<nav *ngIf="!isLoginPage">
+  <a routerLink="/home" routerLinkActive="active" >Home</a>
   <a routerLink="/about" routerLinkActive="active">About</a>
 </nav>
 
-<hr />
+  <button *ngIf="isLoggedIn()" (click)="logout()">Logout</button>
+</nav>
+
 
 <router-outlet></router-outlet>
